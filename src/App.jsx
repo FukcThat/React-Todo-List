@@ -22,13 +22,15 @@ function App() {
       <div>
         {todos.map((todo) => {
           return (
-            <div key={todo.title + todo.description}>
+            <div key={todo.title + todo.description} className="todo-container">
               <h2>{todo.title}</h2>
-              <p>{todo.description}</p>
-              <p>{todo.isDone ? "Done" : "Not done"}</p>
-              <button onClick={() => toggleDone(todo.title)}>
-                Toggle Done
+              <button
+                onClick={() => toggleDone(todo.title)}
+                className="todo--isDone-btn"
+              >
+                {todo.isDone ? "Done" : "Not done"}
               </button>
+              <p>{todo.description}</p>
             </div>
           );
         })}

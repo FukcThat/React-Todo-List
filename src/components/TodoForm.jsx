@@ -19,8 +19,8 @@ export default function TodoForm({ setTodos }) {
   };
 
   return (
-    <form onSubmit={SubmitForm}>
-      <div>
+    <form onSubmit={SubmitForm} className="todo-form">
+      <div className="todo-form--input-group">
         <label>Todo</label>
         <input
           type="text"
@@ -28,7 +28,7 @@ export default function TodoForm({ setTodos }) {
           onChange={(e) => setTitleInput(e.target.value)}
         />
       </div>
-      <div>
+      <div className="todo-form--input-group">
         <label>Notes</label>
         <input
           type="text"
@@ -36,7 +36,9 @@ export default function TodoForm({ setTodos }) {
           onChange={(e) => setDescriptionInput(e.target.value)}
         />
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" className="todo-form--submit-btn">
+        Okay, done!
+      </button>
     </form>
   );
 }
