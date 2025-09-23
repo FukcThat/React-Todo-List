@@ -1,11 +1,12 @@
 export class Todo {
-    constructor(title, description) {
-        this.title = title
-        this.description = description 
-        this.isDone = false
-    }
+  constructor(title, description, dueDate) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = dueDate;
+    this.isDone = false;
+  }
 
-    ToggleDone = () => {
-        this.isDone = !this.isDone
-    }
+  ToggleDone = () => {
+    this.isDone = !this.isDone;
+  };
 }

@@ -17,6 +17,10 @@ input {
   padding-block: 0.25rem;
 }
 
+.justify-self-end {
+  justify-self: end;
+}
+
 .todo-container {
   background-color: rgb(158, 110, 80);
   max-width: 20rem;
@@ -28,7 +32,7 @@ input {
 }
 
 .todo--isDone-btn {
-  max-width: 5rem;
+  width: 5rem;
   justify-self: end;
 }
 
@@ -54,5 +58,5 @@ input {
   border-radius: 1rem;
   border: none;
   padding-block: 0.25rem;
-  box-shadow: 1px 1px rgb(121, 35, 1);
+  box-shadow: 1px 1px 2px rgb(121, 35, 1);
 }

@@ -4,6 +4,11 @@ import TodoForm from "./components/TodoForm";
 
 function App() {
   const [todos, setTodos] = useState(dummyTodoArray);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleVisibility = () => {
+    setIsOpen((isOpen) => !isOpen);
+  };
 
   const toggleDone = (title) => {
     setTodos(
@@ -18,7 +23,8 @@ function App() {
 
   return (
     <>
-      <TodoForm setTodos={setTodos} />
+      <button onClick={toggleVisibility}>{isOpen ? "x" : "+"}</button>
+      {isOpen && <TodoForm setTodos={setTodos} />}
       <div>
         {todos.map((todo) => {
           return (
@@ -31,6 +37,9 @@ function App() {
                 {todo.isDone ? "Done" : "Not done"}
               </button>
               <p>{todo.description}</p>
+              <p className="justify-self-end">
+                {todo.dueDate ? "Due on:  " + todo.dueDate : "No DueDate"}
+              </p>
             </div>
           );
         })}
