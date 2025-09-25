@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { dummyTodoArray } from "./DummyTodos";
+import { dummyTodoArray } from "./lib/DummyTodos";
 import TodoForm from "./components/TodoForm";
 import TodoContainer from "./components/TodoContainer";
 import EditingTodoContainer from "./components/EditingTodoContainer";
@@ -33,6 +33,7 @@ function App() {
         {todos.map((todo) => {
           return todo.title !== isEditing ? (
             <TodoContainer
+              key={todo.title}
               todo={todo}
               toggleDone={toggleDone}
               deleteTodo={deleteTodo}
@@ -40,6 +41,7 @@ function App() {
             />
           ) : (
             <EditingTodoContainer
+              key={todo.title}
               todo={todo}
               toggleDone={toggleDone}
               deleteTodo={deleteTodo}

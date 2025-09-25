@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Todo } from "../lib/Todo";
+import { priorityTypes } from "../lib/data";
 
 const defaultFormInputs = {
   title: "",
@@ -71,10 +72,13 @@ export default function TodoForm({ setTodos }) {
             setFormInputs({ ...formInputs, priority: e.target.value })
           }
         >
-          <option value={"None"}>None</option>
-          <option value={"Small"}>Small</option>
-          <option value={"Kinda big"}>Kinda Big</option>
-          <option value={"Monumental"}>Monumental</option>
+          {priorityTypes.map((type) => {
+            return (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            );
+          })}
         </select>
       </div>
 

@@ -1,4 +1,4 @@
-import { Todo } from "./lib/Todo";
+import { Todo } from "./Todo";
 
 export const dummyTodoArray = [
   new Todo("Pet the Gitten", "On the noggin."),
