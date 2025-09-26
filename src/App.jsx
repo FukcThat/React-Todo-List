@@ -9,6 +9,8 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(null);
 
+  const [projects, setProjects] = useState([]);
+
   const toggleVisibility = () => setIsOpen((isOpen) => !isOpen);
 
   const toggleDone = (title) => {

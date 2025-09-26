@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { priorityTypes } from "../lib/data";
+import SelectInput from "./SelectInput";
+import TextInput from "./TextInput";
 
 export default function EditingTodoContainer({
   todo,
@@ -33,8 +35,8 @@ export default function EditingTodoContainer({
 
   return (
     <div key={todo.title + todo.description} className="todo-container">
-      <input
-        type="text"
+      <TextInput
+        type={"text"}
         value={formState.title}
         onChange={(e) => setFormState({ ...formState, title: e.target.value })}
       />
@@ -44,7 +46,7 @@ export default function EditingTodoContainer({
       >
         {todo.isDone ? "Done" : "Not done"}
       </button>
-      <input
+      <TextInput
         type="text"
         value={formState.description}
         onChange={(e) =>
@@ -53,29 +55,25 @@ export default function EditingTodoContainer({
       />
       <button onClick={() => deleteTodo(todo.title)}>🗑️</button>
       <p>{todo.priorityType}</p>
-      <select
+
+      <SelectInput
         value={formState.priority}
         onChange={(e) =>
           setFormState({ ...formState, priority: e.target.value })
         }
-      >
-        {priorityTypes.map((type) => {
-          return (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          );
-        })}
-      </select>
+        options={priorityTypes}
+        isForm={false}
+      />
+
       <button onClick={submitEditForm}>✏️</button>
       <p className="justify-self-end">
         {todo.dueDate ? "Due on:  " + todo.dueDate : "No DueDate"}
       </p>
 
-      <input
-        type="date"
+      <TextInput
         value={formState.date}
         onChange={(e) => setFormState({ ...formState, date: e.target.value })}
+        type={"date"}
       />
     </div>
   );
