@@ -1,5 +1,5 @@
 export class Todo {
-  constructor(title, description, dueDate, priorityType, projectId) {
+  constructor(title, description, dueDate, priorityType, projectId = null) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
@@ -13,6 +13,6 @@ export class Todo {
   };
 
   ResetProject = () => {
-    this.projectId = "";
+    this.projectId = null;
   };
 }

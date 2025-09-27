@@ -9,12 +9,14 @@ export default function EditingTodoContainer({
   deleteTodo,
   setIsEditing,
   setTodos,
+  projects,
 }) {
   const [formState, setFormState] = useState({
     title: todo.title,
     description: todo.description,
     priority: todo.priorityType,
     date: todo.dueDate ? todo.dueDate : new Date().toISOString(),
+    projectId: todo.projectId,
   });
 
   const submitEditForm = () => {
@@ -25,6 +27,7 @@ export default function EditingTodoContainer({
           task.description = formState.description;
           task.priorityType = formState.priority;
           task.dueDate = formState.date;
+          task.projectId = formState.projectId;
         }
         return task;
       });
@@ -62,6 +65,20 @@ export default function EditingTodoContainer({
           setFormState({ ...formState, priority: e.target.value })
         }
         options={priorityTypes}
+        isForm={false}
+      />
+
+      <SelectInput
+        value={formState.projectId}
+        onChange={(e) =>
+          setFormState({ ...formState, projectId: e.target.value })
+        }
+        options={projects.map((project) => {
+          return {
+            key: project.id,
+            value: project.name,
+          };
+        })}
         isForm={false}
       />
 

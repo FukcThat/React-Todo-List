@@ -1,14 +1,19 @@
 import { useState } from "react";
 import TextInput from "./TextInput";
 import { v4 as uuidv4 } from "uuid";
+import { Project } from "../lib/Project";
 
-export default function ProjectForm() {
+export default function ProjectForm({ setProjects }) {
   const [projectName, setProjectName] = useState("");
 
   const onProjectFormSubmit = (e) => {
     e.preventDefault();
+    if (projectName == "") return;
 
-    console.log(projectName, uuidv4());
+    const newProject = new Project(uuidv4(), projectName);
+    setProjects((oldProjects) => [...oldProjects, newProject]);
+
+    setProjectName("");
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Todo } from "../lib/Todo";
 import { priorityTypes } from "../lib/data";
 import SelectInput from "./SelectInput";
@@ -9,9 +9,10 @@ const defaultFormInputs = {
   description: "",
   dueDate: "",
   priority: "",
+  projectId: null,
 };
 
-export default function TodoForm({ setTodos }) {
+export default function TodoForm({ setTodos, projects }) {
   const [formInputs, setFormInputs] = useState(defaultFormInputs);
 
   const SubmitForm = (e) => {
@@ -24,7 +25,8 @@ export default function TodoForm({ setTodos }) {
       formInputs.title,
       formInputs.description,
       formInputs.dueDate,
-      formInputs.priority
+      formInputs.priority,
+      formInputs.projectId
     );
     setTodos((oldTodos) => [...oldTodos, newTodo]);
 
@@ -68,8 +70,27 @@ export default function TodoForm({ setTodos }) {
         onChange={(e) =>
           setFormInputs({ ...formInputs, priority: e.target.value })
         }
-        options={priorityTypes}
+        options={priorityTypes.map((type) => {
+          return {
+            key: type,
+            value: type,
+          };
+        })}
         label={"Priority Type"}
+      />
+
+      <SelectInput
+        value={formInputs.projectId}
+        onChange={(e) =>
+          setFormInputs({ ...formInputs, projectId: e.target.value })
+        }
+        options={projects.map((project) => {
+          return {
+            key: project.id,
+            value: project.name,
+          };
+        })}
+        label="Project"
       />
 
       <button type="submit" className="todo-form--submit-btn">

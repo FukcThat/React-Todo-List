@@ -11,8 +11,8 @@ export default function SelectInput({
       <select value={value} onChange={onChange}>
         {options.map((item) => {
           return (
-            <option key={item} value={item}>
-              {item}
+            <option key={item.key} value={item.key}>
+              {item.value}
             </option>
           );
         })}
@@ -22,8 +22,8 @@ export default function SelectInput({
     <select value={value} onChange={onChange}>
       {options.map((item) => {
         return (
-          <option key={item} value={item}>
-            {item}
+          <option key={item.key} value={item.key}>
+            {item.value}
           </option>
         );
       })}
