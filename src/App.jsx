@@ -14,17 +14,13 @@ function App() {
   const [isEditing, setIsEditing] = useState(null);
 
   const [projects, setProjects] = useState(dummyProjects);
-  const [activeProject, setActiveProject] = useState(null);
-
-  useEffect(() => {
-    console.log(projects);
-  }, [projects]);
+  const [activeProject, setActiveProject] = useState("");
 
   const filteredTodos = useMemo(() => {
     return todos.filter((todo) =>
-      activeProject == null ? true : activeProject == todo.projectId
+      activeProject == "" ? true : activeProject == todo.projectId
     );
-  }, [activeProject]);
+  }, [activeProject, todos]);
 
   const toggleVisibility = (isTodo = true) => {
     if (isTodo) {
@@ -51,7 +47,9 @@ function App() {
   return (
     <>
       <ProjectNavBar
+        todos={todos}
         projects={projects}
+        setProjects={setProjects}
         activeProject={activeProject}
         setActiveProject={setActiveProject}
       />

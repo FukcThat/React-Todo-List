@@ -64,7 +64,12 @@ export default function EditingTodoContainer({
         onChange={(e) =>
           setFormState({ ...formState, priority: e.target.value })
         }
-        options={priorityTypes}
+        options={priorityTypes.map((type) => {
+          return {
+            key: type,
+            value: type,
+          };
+        })}
         isForm={false}
       />
 
@@ -73,12 +78,15 @@ export default function EditingTodoContainer({
         onChange={(e) =>
           setFormState({ ...formState, projectId: e.target.value })
         }
-        options={projects.map((project) => {
-          return {
-            key: project.id,
-            value: project.name,
-          };
-        })}
+        options={[
+          { key: "", value: "None" },
+          ...projects.map((project) => {
+            return {
+              key: project.id,
+              value: project.name,
+            };
+          }),
+        ]}
         isForm={false}
       />
 

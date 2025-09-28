@@ -9,7 +9,7 @@ const defaultFormInputs = {
   description: "",
   dueDate: "",
   priority: "",
-  projectId: null,
+  projectId: "",
 };
 
 export default function TodoForm({ setTodos, projects }) {
@@ -17,7 +17,6 @@ export default function TodoForm({ setTodos, projects }) {
 
   const SubmitForm = (e) => {
     e.preventDefault();
-    console.log("Form Submitted");
 
     if (formInputs.title == "" || formInputs.description == "") return;
 
@@ -84,12 +83,15 @@ export default function TodoForm({ setTodos, projects }) {
         onChange={(e) =>
           setFormInputs({ ...formInputs, projectId: e.target.value })
         }
-        options={projects.map((project) => {
-          return {
-            key: project.id,
-            value: project.name,
-          };
-        })}
+        options={[
+          { key: "", value: "None" },
+          ...projects.map((project) => {
+            return {
+              key: project.id,
+              value: project.name,
+            };
+          }),
+        ]}
         label="Project"
       />
 
