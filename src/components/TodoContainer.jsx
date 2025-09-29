@@ -1,9 +1,7 @@
-export default function TodoContainer({
-  todo,
-  toggleDone,
-  deleteTodo,
-  setIsEditing,
-}) {
+import { useGlobal } from "../context/Context";
+
+export default function TodoContainer({ todo }) {
+  const { toggleDone, deleteTodo, setIsEditing } = useGlobal();
   return (
     <div key={todo.title + todo.description} className="todo-container">
       <h2>{todo.title}</h2>

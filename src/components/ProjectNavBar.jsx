@@ -1,14 +1,11 @@
 import { useState } from "react";
-import TextInput from "./TextInput";
 import ProjectNavItem from "./ProjectNavItem";
+import { useGlobal } from "../context/Context";
 
-export default function ProjectNavBar({
-  todos,
-  projects,
-  setProjects,
-  setActiveProject,
-  activeProject,
-}) {
+export default function ProjectNavBar({}) {
+  const { todos, projects, setProjects, setActiveProject, activeProject } =
+    useGlobal();
+
   const [isEditing, setIsEditing] = useState(false);
 
   const EditProjects = () => {

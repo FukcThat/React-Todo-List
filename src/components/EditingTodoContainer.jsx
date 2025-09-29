@@ -2,15 +2,12 @@ import { useState } from "react";
 import { priorityTypes } from "../lib/data";
 import SelectInput from "./SelectInput";
 import TextInput from "./TextInput";
+import { useGlobal } from "../context/Context";
 
-export default function EditingTodoContainer({
-  todo,
-  toggleDone,
-  deleteTodo,
-  setIsEditing,
-  setTodos,
-  projects,
-}) {
+export default function EditingTodoContainer({ todo }) {
+  const { toggleDone, deleteTodo, setIsEditing, setTodos, projects } =
+    useGlobal();
+
   const [formState, setFormState] = useState({
     title: todo.title,
     description: todo.description,

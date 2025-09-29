@@ -1,20 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
-import { dummyTodoArray } from "./lib/DummyTodos";
 import TodoForm from "./components/TodoForm";
 import TodoContainer from "./components/TodoContainer";
 import EditingTodoContainer from "./components/EditingTodoContainer";
 import ProjectForm from "./components/ProjectForm";
 import ProjectNavBar from "./components/ProjectNavBar";
-import { dummyProjects } from "./lib/DummyProjects";
+import { useGlobal } from "./context/Context";
 
 function App() {
-  const [todos, setTodos] = useState(dummyTodoArray);
+  const { todos, setTodos, projects, setProjects, activeProject, isEditing } =
+    useGlobal();
+
   const [showTodoForm, setShowTodoForm] = useState(false);
   const [showProjectForm, setShowProjectForm] = useState(false);
-  const [isEditing, setIsEditing] = useState(null);
-
-  const [projects, setProjects] = useState(dummyProjects);
-  const [activeProject, setActiveProject] = useState("");
 
   const filteredTodos = useMemo(() => {
     return todos.filter((todo) =>
@@ -30,51 +27,17 @@ function App() {
     }
   };
 
-  const toggleDone = (title) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.title === title) {
-          todo.ToggleDone();
-        }
-        return todo;
-      })
-    );
-  };
-
-  const deleteTodo = (title) =>
-    setTodos(todos.filter((todo) => todo.title !== title));
-
   return (
     <>
-      <ProjectNavBar
-        todos={todos}
-        projects={projects}
-        setProjects={setProjects}
-        activeProject={activeProject}
-        setActiveProject={setActiveProject}
-      />
+      <ProjectNavBar />
       <button onClick={toggleVisibility}>{showTodoForm ? "x" : "+"}</button>
       {showTodoForm && <TodoForm setTodos={setTodos} projects={projects} />}
       <div>
         {filteredTodos.map((todo) => {
           return todo.title !== isEditing ? (
-            <TodoContainer
-              key={todo.title}
-              todo={todo}
-              toggleDone={toggleDone}
-              deleteTodo={deleteTodo}
-              setIsEditing={setIsEditing}
-            />
+            <TodoContainer key={todo.title} todo={todo} />
           ) : (
-            <EditingTodoContainer
-              key={todo.title}
-              todo={todo}
-              toggleDone={toggleDone}
-              deleteTodo={deleteTodo}
-              setIsEditing={setIsEditing}
-              setTodos={setTodos}
-              projects={projects}
-            />
+            <EditingTodoContainer key={todo.title} todo={todo} />
           );
         })}
       </div>
