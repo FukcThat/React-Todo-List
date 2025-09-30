@@ -4,3 +4,6 @@ export class Project {
     this.name = name;
   }
 }
+
+export const ProjectHydrator = (project) =>
+  new Project(project.id, project.name);

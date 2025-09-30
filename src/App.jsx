@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoContainer from "./components/TodoContainer";
 import EditingTodoContainer from "./components/EditingTodoContainer";
@@ -7,25 +7,24 @@ import ProjectNavBar from "./components/ProjectNavBar";
 import { useGlobal } from "./context/Context";
 
 function App() {
-  const { todos, setTodos, projects, setProjects, activeProject, isEditing } =
-    useGlobal();
-
-  const [showTodoForm, setShowTodoForm] = useState(false);
-  const [showProjectForm, setShowProjectForm] = useState(false);
+  const {
+    todos,
+    setTodos,
+    projects,
+    setProjects,
+    activeProject,
+    isEditing,
+    showTodoForm,
+    showProjectForm,
+    toggleVisibility,
+  } = useGlobal();
 
   const filteredTodos = useMemo(() => {
+    if (!Array.isArray(todos)) return [];
     return todos.filter((todo) =>
       activeProject == "" ? true : activeProject == todo.projectId
     );
   }, [activeProject, todos]);
-
-  const toggleVisibility = (isTodo = true) => {
-    if (isTodo) {
-      setShowTodoForm((isOpen) => !isOpen);
-    } else {
-      setShowProjectForm((isOpen) => !isOpen);
-    }
-  };
 
   return (
     <>

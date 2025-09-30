@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Todo } from "../lib/Todo";
+import { Todo, TodoHydrator } from "../lib/Todo";
 import { priorityTypes } from "../lib/data";
 import SelectInput from "./SelectInput";
 import TextInput from "./TextInput";
+import { useGlobal } from "../context/Context";
 
 const defaultFormInputs = {
   title: "",
@@ -14,22 +15,14 @@ const defaultFormInputs = {
 
 export default function TodoForm({ setTodos, projects }) {
   const [formInputs, setFormInputs] = useState(defaultFormInputs);
+  const { toggleVisibility } = useGlobal();
 
   const SubmitForm = (e) => {
     e.preventDefault();
-
     if (formInputs.title == "" || formInputs.description == "") return;
-
-    const newTodo = new Todo(
-      formInputs.title,
-      formInputs.description,
-      formInputs.dueDate,
-      formInputs.priority,
-      formInputs.projectId
-    );
-    setTodos((oldTodos) => [...oldTodos, newTodo]);
-
+    setTodos((oldTodos) => [...oldTodos, TodoHydrator(formInputs)]);
     setFormInputs(defaultFormInputs);
+    toggleVisibility();
   };
 
   return (

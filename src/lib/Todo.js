@@ -16,3 +16,13 @@ export class Todo {
     this.projectId = "";
   };
 }
+
+export const TodoHydrator = (todo) => {
+  return new Todo(
+    todo.title,
+    todo.description,
+    todo.dueDate,
+    todo.proirity,
+    todo.projectId
+  );
+};

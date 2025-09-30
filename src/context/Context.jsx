@@ -1,43 +1,28 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { Todo } from "../lib/Todo";
+import { createContext, use, useContext, useEffect, useState } from "react";
+import { TodoHydrator } from "../lib/Todo";
 import { dummyProjects, dummyTodoArray } from "../lib/data";
-import { Project } from "../lib/Project";
+import { ProjectHydrator } from "../lib/Project";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const GlobalContext = createContext(null);
 
 export const GlobalProvider = ({ children }) => {
-  const [todos, setTodos] = useState(
-    localStorage.getItem("react-todos")
-      ? JSON.parse(localStorage.getItem("react-todos")).map((todo) => {
-          return new Todo(
-            todo.title,
-            todo.description,
-            todo.dueDate,
-            todo.proirity,
-            todo.projectId
-          );
-        })
-      : dummyTodoArray
+  const [todos, setTodos] = useLocalStorage(
+    "react-todos",
+    dummyTodoArray,
+    TodoHydrator
   );
 
-  const [projects, setProjects] = useState(
-    localStorage.getItem("react-projects")
-      ? JSON.parse(localStorage.getItem("react-projects")).map((project) => {
-          return new Project(project.id, project.name);
-        })
-      : dummyProjects
+  const [projects, setProjects] = useLocalStorage(
+    "react-projects",
+    dummyProjects,
+    ProjectHydrator
   );
 
   const [isEditing, setIsEditing] = useState(null);
   const [activeProject, setActiveProject] = useState("");
-
-  useEffect(() => {
-    localStorage.setItem("react-todos", JSON.stringify(todos));
-  }, [todos]);
-
-  useEffect(() => {
-    localStorage.setItem("react-projects", JSON.stringify(projects));
-  }, [projects]);
+  const [showTodoForm, setShowTodoForm] = useState(false);
+  const [showProjectForm, setShowProjectForm] = useState(false);
 
   const toggleDone = (title) => {
     setTodos(
@@ -50,6 +35,14 @@ export const GlobalProvider = ({ children }) => {
     );
   };
 
+  const toggleVisibility = (isTodo = true) => {
+    if (isTodo) {
+      setShowTodoForm((isOpen) => !isOpen);
+    } else {
+      setShowProjectForm((isOpen) => !isOpen);
+    }
+  };
+
   const deleteTodo = (title) =>
     setTodos(todos.filter((todo) => todo.title !== title));
 
@@ -58,14 +51,17 @@ export const GlobalProvider = ({ children }) => {
       value={{
         todos,
         setTodos,
+        showTodoForm,
         projects,
         setProjects,
+        showProjectForm,
         isEditing,
         setIsEditing,
         activeProject,
         setActiveProject,
         toggleDone,
         deleteTodo,
+        toggleVisibility,
       }}
     >
       {children}
